@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/screen/detail_screen.dart';
 import 'package:tourism_app/screen/front_screen.dart';
 import 'package:tourism_app/screen/home_page.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const DetailSightScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

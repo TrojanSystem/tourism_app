@@ -54,15 +54,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               BodySection(width: _width),
               Expanded(
                 flex: 1,
-                child: Container(
-                  color: Colors.red,
-
+                child: Column(
+                  children: [
+                    const Text(
+                      'Feeling Adventures?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Column(
+                      children: [],
+                    )
+                  ],
                 ),
               ),
             ],
           ),
         ),
-       bottomNavigationBar:BottomTabBar(),
+        bottomNavigationBar: const BottomTabBar(),
       ),
     );
   }

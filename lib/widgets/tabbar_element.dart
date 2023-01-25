@@ -27,8 +27,15 @@ class TabBarElement extends StatelessWidget {
               image: const DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(
-                    'assets/images/back.jpg'),
+                    'assets/images/image.jpg'),
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  blurRadius: 10,
+
+                ),
+              ],
             ),
           ),
           const Positioned(
