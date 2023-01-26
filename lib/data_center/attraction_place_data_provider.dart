@@ -7,4 +7,10 @@ class AttractionPlaceDataProvider extends ChangeNotifier {
     currentScreenIndex = value;
     notifyListeners();
   }
+  bool isShowing = false;
+
+  void changer(bool isShow) {
+    isShowing = !isShow;
+    notifyListeners();
+  }
 }

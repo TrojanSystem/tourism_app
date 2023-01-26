@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tourism_app/data_center/attraction_place_data_provider.dart';
 
 import '../data_center/attraction_model.dart';
 import '../widgets/body_section.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
@@ -34,36 +38,93 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  bool isVisible = false;
+
   @override
   Widget build(BuildContext context) {
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
     final attractionSight = AttractionModel.attractionPlaces;
+
+    List<String> searchTerms = [];
+    final foodList = AttractionModel.attractionPlaces;
+
+    foodList.map((e) => searchTerms.add(e.name)).toList();
+
+    List<String> matchQuery = [];
+    for (var fruit in searchTerms) {
+      if (fruit.toLowerCase().contains(searched.toLowerCase())) {
+        matchQuery.add(fruit);
+      }
+    }
     return SafeArea(
       child: SingleChildScrollView(
         child: SizedBox(
-          height: _height*0.8,
-          child: Column(
+          height: _height * 0.8,
+          child: Stack(
             children: [
-              buildHeaderBody(),
-              BodySection(width: _width, attractionSiteList: attractionSight),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    const Text(
-                      'Feeling Adventures?',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
+              Column(
+                children: [
+                  buildHeaderBody(),
+                  BodySection(
+                      width: _width, attractionSiteList: attractionSight),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Feeling Adventures?',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        Column(
+                          children: [],
+                        )
+                      ],
                     ),
-                    Column(
-                      children: [],
-                    )
-                  ],
-                ),
+                  ),
+                ],
               ),
+              Provider.of<AttractionPlaceDataProvider>(context, listen: false)
+                          .isShowing ==
+                      true
+                  ? Positioned(
+                      top: 180,
+                      left: 20,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: ListView.builder(
+                          itemCount: matchQuery.length,
+                          itemBuilder: (context, index) {
+                            var result = matchQuery[index];
+
+                            return result.isNotEmpty
+                                ? ListTile(
+                                    onTap: () {},
+                                    title: Text(
+                                      result,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  )
+                                : const Center(
+                                    child: Text('No Recipe By Value Entered!'),
+                                  );
+                          },
+                        ),
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         ),
@@ -143,7 +204,22 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
             onChanged: (value) {
               setState(() {
                 searched = value;
+                setState(() {
+                  searched = value;
 
+                  if (value.isEmpty) {
+                    FocusScope.of(context).unfocus();
+
+                    Provider.of<AttractionPlaceDataProvider>(context,
+                            listen: false)
+                        .changer(!isVisible);
+                  } else {
+                    Provider.of<AttractionPlaceDataProvider>(context,
+                            listen: false)
+                        .changer(isVisible);
+                  }
+                  // print( Provider.of<FoodDataProvider>(context,listen: false).isShowing);
+                });
                 // print( Provider.of<FoodDataProvider>(context,listen: false).isShowing);
               });
             },
