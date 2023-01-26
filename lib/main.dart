@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tourism_app/screen/detail_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:tourism_app/data_center/attraction_place_data_provider.dart';
 import 'package:tourism_app/screen/front_screen.dart';
-import 'package:tourism_app/screen/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +13,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => AttractionPlaceDataProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const FrontScreen(),
+        debugShowCheckedModeBanner: false,
       ),
-      home: const DetailSightScreen(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

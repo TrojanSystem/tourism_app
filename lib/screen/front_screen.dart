@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/screen/home_page.dart';
 
 class FrontScreen extends StatefulWidget {
   const FrontScreen({super.key});
@@ -54,7 +55,13 @@ class _FrontScreenState extends State<FrontScreen> {
             alignment: Alignment.bottomCenter,
             margin: const EdgeInsets.only(bottom: 40),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => const HomePage(),
+                  ),
+                );
+              },
               style: ButtonStyle(
                   padding: MaterialStateProperty.all(
                     const EdgeInsets.all(18),

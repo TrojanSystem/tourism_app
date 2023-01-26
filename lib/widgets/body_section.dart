@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:tourism_app/widgets/tabbar_element.dart';
 
 class BodySection extends StatelessWidget {
-  const BodySection({
-    Key? key,
+  BodySection({
+    required this.attractionSiteList,
     required double width,
-  }) : _width = width, super(key: key);
+  }) : _width = width;
 
   final double _width;
+  final List attractionSiteList;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class BodySection extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-           const Padding(
+          const Padding(
             padding: EdgeInsets.only(left: 8.0),
             child: TabBar(
               indicatorColor: Colors.black,
@@ -64,7 +65,8 @@ class BodySection extends StatelessWidget {
               children: [
                 ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => TabBarElement(width: _width),
+                    itemBuilder: (context, index) =>
+                        TabBarElement(width: _width,attractionPlace:attractionSiteList[index]),
                     itemCount: 3),
                 Container(
                   color: Colors.yellow,
@@ -80,4 +82,3 @@ class BodySection extends StatelessWidget {
     );
   }
 }
-
