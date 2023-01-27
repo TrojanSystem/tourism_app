@@ -38,13 +38,11 @@ class _DetailSightScreenState extends State<DetailSightScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildAppbarButton(
-
                         icon: Icons.arrow_back_ios_new_rounded,
                         btnFuction: () {
                           Navigator.of(context).pop();
                         }),
                     buildAppbarButton(
-
                         icon:
                             isFavorite ? Icons.favorite : Icons.favorite_border,
                         btnFuction: () {
@@ -68,7 +66,8 @@ class _DetailSightScreenState extends State<DetailSightScreen> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return buildSlideView(
-                      images: widget.attractionPlace.image[index]);
+                    images: widget.attractionPlace.image[index],
+                  );
                 },
                 itemCount: widget.attractionPlace.image.length,
               ),
@@ -80,18 +79,41 @@ class _DetailSightScreenState extends State<DetailSightScreen> {
     );
   }
 
-  Container buildSlideView({required images}) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-      height: 60,
-      width: 60,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(images),
+  Widget buildSlideView({required images}) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: ClipRRect(
+              clipBehavior: Clip.antiAlias,
+              child: Container(
+                height: 300,
+                width: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.transparent,
+                  image: DecorationImage(
+                      image: AssetImage(images), fit: BoxFit.cover),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+        height: 60,
+        width: 60,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(images),
+          ),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(width: 2, color: Colors.white),
         ),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 2, color: Colors.white),
       ),
     );
   }
@@ -109,7 +131,7 @@ class _DetailSightScreenState extends State<DetailSightScreen> {
         ),
         width: 60,
         height: 60,
-        child: Icon(icon),
+        child: Icon(icon,size: 25,),
       ),
     );
   }

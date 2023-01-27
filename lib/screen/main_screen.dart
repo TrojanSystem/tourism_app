@@ -162,7 +162,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   ),
                   Container(
                     margin: const EdgeInsets.only(right: 20, top: 20),
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                         color: Colors.transparent,
                         shape: BoxShape.circle,

@@ -1,13 +1,13 @@
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tourism_app/data_center/attraction_model.dart';
+
 import 'package:tourism_app/screen/bookmark_screen.dart';
 import 'package:tourism_app/screen/profile_screen.dart';
 import 'package:tourism_app/screen/search_screen.dart';
 
 import '../data_center/attraction_place_data_provider.dart';
-import '../widgets/body_section.dart';
+
 import '../widgets/bottom_tab_bar.dart';
 import 'main_screen.dart';
 
@@ -23,9 +23,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
   List screenWidget = [
-    MainScreen(),
+    const MainScreen(),
     const SearchScreen(),
-    const BookmarkScreen(),
+    const BookmarkScreen(favoriteList: [],),
     const ProfileScreen(),
   ];
 
